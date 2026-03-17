@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Offline-first Notes"
 include(":app")
- 
+include(":data")
