@@ -6,4 +6,11 @@
     <string name="untitled">Untitled</string>
     <string name="syncing">Syncing</string>
     <string name="updated_note_msg">Updated %1$s</string>
+    <string name="save_note">Save Note</string>
+    <string name="edit_note">Edit Note</string>
+    <string name="title">Title</string>
+    <string name="content">Content</string>
+    <string name="tags_msg">Tags (comma separated)</string>
+    <string name="tags_hint">work, personal, todo</string>
+    <string name="back">Back</string>
 </resources>
