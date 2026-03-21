@@ -52,6 +52,9 @@ dependencies {
     implementation(libs.room.ktx)
     ksp(libs.room.ksp)
 
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.firestore)
+
     implementation(project(":domain"))
     implementation(project(":core"))
 
