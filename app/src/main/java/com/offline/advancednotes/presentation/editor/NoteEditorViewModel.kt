@@ -2,6 +2,7 @@ package com.offline.advancednotes.presentation.editor
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.offline.advancednotes.data.sync.SyncManager
 import com.offline.advancednotes.domain.model.Note
 import com.offline.advancednotes.domain.repository.NotesRepository
 import com.offline.advancednotes.presentation.navigation.NotesRoute
@@ -16,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NoteEditorViewModel @Inject constructor(
-    private val repository: NotesRepository
+    private val repository: NotesRepository,
+    private val syncManager: SyncManager
 ) : ViewModel() {
 
     private val _currentNote = MutableStateFlow<Note?>(null)
@@ -40,6 +42,7 @@ class NoteEditorViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 repository.saveNote(note)
+                syncManager.enqueueSync()
                 _uiEvent.send(NoteEditorUiEvent.NavigateBack)
             } catch (e: Exception) {
                 _uiEvent.send(NoteEditorUiEvent.ShowError("Failed to save note: ${e.message}"))
