@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.offline.advancednotes.domain.model.SyncStatus
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -36,4 +37,14 @@ interface NoteDao {
         ORDER BY updatedAt DESC
     """)
     fun searchNotes(query: String): Flow<List<NoteEntity>>
+
+    @Query("SELECT * FROM notes WHERE syncStatus = :pendingStatus AND isDeleted = 0")
+    suspend fun getPendingSyncNotes(pendingStatus: String = SyncStatus.PENDING.name): List<NoteEntity>
+
+    @Query("UPDATE notes SET syncStatus = :status WHERE id = :id")
+    suspend fun updateSyncStatusByValue(id: String, status: String)
+
+    suspend fun updateSyncStatus(id: String, status: SyncStatus) {
+        updateSyncStatusByValue(id, status.name)
+    }
 }

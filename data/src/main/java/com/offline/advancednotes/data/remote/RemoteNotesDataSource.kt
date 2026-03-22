@@ -5,12 +5,13 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
 import com.offline.advancednotes.domain.model.Note
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
 /**
  * Remote data source using Firebase Firestore.
  * Only handles individual note operations for sync.
  */
-class RemoteNotesDataSource {
+class RemoteNotesDataSource @Inject constructor() {
 
     companion object {
         private const val NOTES_COLLECTION = "notes"

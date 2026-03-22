@@ -3,6 +3,7 @@ package com.offline.advancednotes.data.local.room
 import com.offline.advancednotes.data.mapper.NoteMapper.toDomain
 import com.offline.advancednotes.data.mapper.NoteMapper.toEntity
 import com.offline.advancednotes.domain.model.Note
+import com.offline.advancednotes.domain.model.SyncStatus
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -34,5 +35,13 @@ class LocalNotesDataSource @Inject constructor(
         return noteDao.searchNotes(query).map { entities ->
             entities.map { it.toDomain() }
         }
+    }
+
+    suspend fun getPendingSyncNotes(): List<Note> {
+        return noteDao.getPendingSyncNotes().map { it.toDomain() }
+    }
+
+    suspend fun updateSyncStatus(id: String, status: SyncStatus) {
+        noteDao.updateSyncStatus(id, status)
     }
 }
