@@ -1,6 +1,7 @@
 package com.offline.advancednotes.data.di
 
 import com.offline.advancednotes.domain.repository.NotesRepository
+import com.offline.advancednotes.domain.usecase.InitialSyncUseCase
 import com.offline.advancednotes.domain.usecase.SyncPendingNotesUseCase
 import dagger.Module
 import dagger.Provides
@@ -16,5 +17,12 @@ object UseCaseModule {
         repository: NotesRepository
     ): SyncPendingNotesUseCase {
         return SyncPendingNotesUseCase(repository)
+    }
+
+    @Provides
+    fun provideInitialSyncUseCase(
+        repository: NotesRepository
+    ): InitialSyncUseCase {
+        return InitialSyncUseCase(repository)
     }
 }

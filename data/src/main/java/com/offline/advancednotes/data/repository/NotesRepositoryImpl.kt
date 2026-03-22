@@ -47,4 +47,7 @@ class NotesRepositoryImpl @Inject constructor(
 
     override suspend fun saveNoteToRemote(note: Note) =
         remoteDataSource.saveNote(note)
+
+    override suspend fun getRemoteNotes(): List<Note> =
+        remoteDataSource.getAllNotes()
 }

@@ -1,5 +1,6 @@
 package com.offline.advancednotes.data.remote
 
+import android.util.Log
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
@@ -14,6 +15,7 @@ import javax.inject.Inject
 class RemoteNotesDataSource @Inject constructor() {
 
     companion object {
+        const val TAG = "RemoteNotesDataSource"
         private const val NOTES_COLLECTION = "notes"
     }
 
@@ -45,5 +47,13 @@ class RemoteNotesDataSource @Inject constructor() {
                 )
             )
             .await()
+    }
+
+    suspend fun getAllNotes(): List<Note> = try {
+        val snapshot = notesCollection.get().await()
+        snapshot.toObjects(Note::class.java)
+    } catch (e: Exception) {
+        Log.e(TAG, "Failed to fetch all notes: ${e.message}", e)
+        emptyList()
     }
 }

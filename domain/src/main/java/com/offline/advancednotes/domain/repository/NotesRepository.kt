@@ -16,4 +16,5 @@ interface NotesRepository {
 
     suspend fun getRemoteNoteById(id: String): Note?
     suspend fun saveNoteToRemote(note: Note)
+    suspend fun getRemoteNotes(): List<Note>
 }
